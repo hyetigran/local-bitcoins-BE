@@ -6,6 +6,7 @@ const { generateToken } = require("./usersHelper");
 exports.signup = async (req, res) => {
   try {
     const { email, username, password } = req.body;
+    console.log("req.body", req.body);
     const hashedPassword = await bcrypt.hash(password, 12);
     const credentials = {
       username,
@@ -45,22 +46,24 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       return res.status(400).json({
-        errorMessage: "Oops, email and password is required for login."
+        errorMessage: "Oops, username and password is required for login."
       });
     }
-    const user = await User.findBy({ email });
+    const user = await User.findBy({ username });
+    console.log(user);
+    console.log("bcrypt", bcrypt.compareSync(password, user.password));
     if (user && bcrypt.compareSync(password, user.password)) {
       return res.status(200).json({
-        token: generateToken(user.email, user.id),
+        token: generateToken(user.username, user.id),
         userId: user.id
       });
     }
     return res
       .status(401)
-      .json({ errorMessage: "Oops, email or password is incorrect" });
+      .json({ errorMessage: "Oops, username or password is incorrect" });
   } catch (err) {
     return res.status(500).json({
       errorMessage: "Oops, something went wrong while loging in",
