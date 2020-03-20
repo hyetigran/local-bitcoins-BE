@@ -11,7 +11,7 @@ server.use(cors());
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use("/auth", usersRoutes);
+server.use("/api/auth", usersRoutes);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Local Bitcoin Clone API" });
@@ -23,7 +23,7 @@ server.all("*", (req, res) => {
   });
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 if (process.env.NODE_ENV !== "test") {
   server.listen(port, console.log(`Listening on Port ${port}`));

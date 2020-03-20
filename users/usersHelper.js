@@ -4,10 +4,10 @@ const { check, validationResult } = require("express-validator");
 
 const secret = process.env.JWT_SECRET || "default";
 
-const generateToken = (email, id) => {
+const generateToken = (username, id) => {
   const token = jwt.sign(
     {
-      email,
+      username,
       userId: id
     },
     secret,

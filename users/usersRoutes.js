@@ -4,7 +4,7 @@ const { validateUser } = require("./usersHelper");
 
 const router = express.Router();
 
-router.post("/signup", validateUser, usersControllers.signup);
+router.post("/register", validateUser, usersControllers.signup);
 
 router.post("/login", usersControllers.login);
 
