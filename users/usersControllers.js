@@ -6,7 +6,6 @@ const { generateToken } = require("./usersHelper");
 exports.signup = async (req, res) => {
   try {
     const { email, username, password } = req.body;
-    console.log("req.body", req.body);
     const hashedPassword = await bcrypt.hash(password, 12);
     const credentials = {
       username,
@@ -53,8 +52,6 @@ exports.login = async (req, res) => {
       });
     }
     const user = await User.findBy({ username });
-    console.log(user);
-    console.log("bcrypt", bcrypt.compareSync(password, user.password));
     if (user && bcrypt.compareSync(password, user.password)) {
       return res.status(200).json({
         token: generateToken(user.username, user.id),
