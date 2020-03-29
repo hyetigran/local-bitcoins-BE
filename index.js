@@ -5,6 +5,7 @@ const cors = require("cors");
 const server = express();
 
 const usersRoutes = require("./users/usersRoutes");
+const offersRoutes = require("./offers/offersRoutes");
 
 server.use(helmet());
 server.use(cors());
@@ -12,6 +13,7 @@ server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use("/api/auth", usersRoutes);
+server.use("/api/offers", offersRoutes);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Local Bitcoin Clone API" });
