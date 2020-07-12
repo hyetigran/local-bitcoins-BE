@@ -8,9 +8,9 @@ module.exports = {
     useNullAsDefault: true, // used to avoid warning on console
     migrations: {
       directory: "./data/migrations",
-      tableName: "dbmigrations"
+      tableName: "dbmigrations",
     },
-    seeds: { directory: "./data/seeds" }
+    seeds: { directory: "./data/seeds" },
   },
   production: {
     client: "pg",
@@ -18,26 +18,26 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations",
-      tableName: "dbmigrations"
+      tableName: "dbmigrations",
     },
     seeds: {
-      directory: "./data/seeds"
-    }
+      directory: "./data/seeds",
+    },
   },
   staging: {
     client: "postgresql",
     connection: {
       database: "my_db",
       user: "username",
-      password: "password"
+      password: "password",
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: "knex_migrations"
-    }
+      tableName: "knex_migrations",
+    },
   },
 
   testing: {
@@ -46,10 +46,10 @@ module.exports = {
     useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations",
-      tableName: "dbmigrations"
+      tableName: "dbmigrations",
     },
     seeds: {
-      directory: "./data/seeds"
-    }
-  }
+      directory: "./data/seeds",
+    },
+  },
 };
