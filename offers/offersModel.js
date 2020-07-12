@@ -1,20 +1,16 @@
 const db = require("../data/dbConfig");
 
 function findById(id) {
-  return db("offers")
-    .where({ id })
-    .first();
+  return db("offers").where({ id }).first();
 }
 
-async function createOffer(newOffer) {
-  db("offers")
-    .insert(newOffer)
-    .then(ids => {
-      return findById(ids[0]);
-    });
+async function saveOffer(newOffer) {
+  const [savedOffer] = await db("offers").insert(newOffer, "*");
+
+  return findById(savedOffer.id);
 }
 
 module.exports = {
-  createOffer,
-  findById
+  saveOffer,
+  findById,
 };
