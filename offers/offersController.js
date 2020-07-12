@@ -18,9 +18,8 @@ exports.createOffer = async (req, res) => {
     openHours,
     closeHours,
     verifiedOnly,
-    makerId
+    makerId,
   } = req.body;
-  const user_id = req.userId;
   const newOffer = {
     buyBCH,
     city,
@@ -38,22 +37,23 @@ exports.createOffer = async (req, res) => {
     open_hours: openHours,
     close_hours: closeHours,
     verified_only: verifiedOnly,
-    maker_id: user_id
+    maker_id: makerId,
   };
 
   try {
-    const newOfferInfo = await offersModel.createOffer(newOffer);
+    console.log("newOffer", newOffer);
+    const newOfferInfo = await offersModel.saveOffer(newOffer);
 
     if (!newOfferInfo) {
       return res.status(400).json({
-        errorMessage: "Something went wrong with your request"
+        errorMessage: "Something went wrong with your request",
       });
     }
     return res.status(201).json(newOfferInfo);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      errorMessage: error
+      errorMessage: error,
     });
   }
 };

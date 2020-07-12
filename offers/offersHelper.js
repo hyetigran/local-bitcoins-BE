@@ -15,7 +15,7 @@ const validateOfferBody = [
     .withMessage("Country field cannot  be empty")
     .trim(),
 
-  check("payment_method")
+  check("paymentMethod")
     .matches(/^[a-z\-_\s']+$/i)
     .not()
     .isEmpty()
@@ -26,18 +26,18 @@ const validateOfferBody = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errorMessage = {};
-      errors.array().forEach(error => {
+      errors.array().forEach((error) => {
         errorMessage[error.param] = error.msg;
       });
       return res.status(400).json({
         status: 400,
-        errorMessage
+        errorMessage,
       });
     }
     return next();
-  }
+  },
 ];
 
 module.exports = {
-  validateOfferBody
+  validateOfferBody,
 };
