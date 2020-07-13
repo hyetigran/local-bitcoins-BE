@@ -2,15 +2,15 @@ const offersModel = require("./offersModel.js");
 
 exports.getMyOffers = async (req, res) => {
   const maker_id = req.params;
-  console.log(req.params);
 
   try {
-    const myOffers = await offersModel.getMyOffers(maker_id);
+    const myOffers = await offersModel.fetchMyOffers(maker_id);
     return res.status(200).json(myOffers);
   } catch (error) {
     return res.status(500).json({ error });
   }
 };
+
 exports.createOffer = async (req, res) => {
   const {
     buyBCH,
