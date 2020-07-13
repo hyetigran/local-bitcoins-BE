@@ -10,7 +10,12 @@ async function saveOffer(newOffer) {
   return findById(savedOffer.id);
 }
 
+async function getMyOffers(maker_id) {
+  return db("offers").where("maker_id", maker_id);
+}
+
 module.exports = {
   saveOffer,
   findById,
+  getMyOffers,
 };
