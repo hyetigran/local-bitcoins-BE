@@ -18,6 +18,7 @@ const updateBody = (body) => {
     closeHours,
     verifiedOnly,
     makerId,
+    pause,
   } = body;
   return {
     buyBCH,
@@ -37,6 +38,7 @@ const updateBody = (body) => {
     close_hours: closeHours,
     verified_only: verifiedOnly,
     maker_id: makerId,
+    pause,
   };
 };
 
@@ -54,7 +56,6 @@ exports.createOffer = async (req, res) => {
   const newOffer = updateBody(req.body);
 
   try {
-    console.log("newOffer", newOffer);
     const newOfferInfo = await offersModel.saveOffer(newOffer);
 
     if (!newOfferInfo) {
@@ -72,9 +73,21 @@ exports.createOffer = async (req, res) => {
 };
 
 exports.updateOffer = async (req, res) => {
-  console.log("herer params", req.params);
-  console.log("body", req.body);
+  const { userId, offerId } = req.params;
+  const updatedOffer = updateBody(req.body);
   try {
+    const updateComplete = await offersModel.updateOffer(
+      updatedOffer,
+      offerId,
+      userId
+    );
+
+    if (!updateComplete) {
+      return res.status(400).json({
+        errorMessage: "Something went wrong with your request",
+      });
+    }
+    return res.status(200).json(updateComplete);
   } catch (error) {
     console.log("herer params", req.params);
     return res.status(500).json({ error });
