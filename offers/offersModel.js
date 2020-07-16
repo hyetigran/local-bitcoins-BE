@@ -14,6 +14,10 @@ async function fetchMyOffers({ id }) {
   return db("offers").where("maker_id", id);
 }
 
+async function fetchMyOffers({ id }) {
+  return db("offers").where("id", id);
+}
+
 async function updateOffer(updateOffer, offerId, userId) {
   console.log("inside the model", updateOffer);
   const [updatedOffer] = await db("offers")
