@@ -10,7 +10,26 @@ async function saveOffer(newOffer) {
   return findById(savedOffer.id);
 }
 
+async function fetchMyOffers({ id }) {
+  return db("offers").where("maker_id", id);
+}
+
+async function updateOffer(updateOffer, offerId, userId) {
+  const [updatedOffer] = await db("offers")
+    .where({ id: offerId, maker_id: userId })
+    .update(updateOffer, "*");
+  return findById(updatedOffer.id);
+}
+
+async function deleteOfferById(userId, offerId) {
+  console.log("inside the model");
+  return db("offers").where({ id: offerId, maker_id: userId }).del();
+}
+
 module.exports = {
   saveOffer,
   findById,
+  fetchMyOffers,
+  updateOffer,
+  deleteOfferById,
 };
