@@ -99,7 +99,18 @@ exports.updateOffer = async (req, res) => {
     }
     return res.status(200).json(updateComplete);
   } catch (error) {
-    console.log("herer params", req.params);
+    return res.status(500).json({ error });
+  }
+};
+
+exports.deleteOffer = async (req, res) => {
+  const { userId, offerId } = req.params;
+
+  try {
+    const result = await offersModel.deleteOfferById(userId, offerId);
+
+    return res.status(200).json(result);
+  } catch (error) {
     return res.status(500).json({ error });
   }
 };

@@ -15,7 +15,6 @@ async function fetchMyOffers({ id }) {
 }
 
 async function updateOffer(updateOffer, offerId, userId) {
-  console.log("inside the model", updateOffer);
   const [updatedOffer] = await db("offers")
     .where({ id: offerId, maker_id: userId })
     .update(updateOffer, "*");
@@ -23,9 +22,14 @@ async function updateOffer(updateOffer, offerId, userId) {
   return findById(updatedOffer.id);
 }
 
+async function deleteOffer(userId, offerId) {
+  return db("offers").where({ id: offerId, maker_id: userId }).del();
+}
+
 module.exports = {
   saveOffer,
   findById,
   fetchMyOffers,
   updateOffer,
+  deleteOffer,
 };
