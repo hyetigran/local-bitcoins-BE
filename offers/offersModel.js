@@ -18,11 +18,11 @@ async function updateOffer(updateOffer, offerId, userId) {
   const [updatedOffer] = await db("offers")
     .where({ id: offerId, maker_id: userId })
     .update(updateOffer, "*");
-  console.log("uO", updatedOffer);
   return findById(updatedOffer.id);
 }
 
-async function deleteOffer(userId, offerId) {
+async function deleteOfferById(userId, offerId) {
+  console.log("inside the model");
   return db("offers").where({ id: offerId, maker_id: userId }).del();
 }
 
@@ -31,5 +31,5 @@ module.exports = {
   findById,
   fetchMyOffers,
   updateOffer,
-  deleteOffer,
+  deleteOfferById,
 };
