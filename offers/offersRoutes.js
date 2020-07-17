@@ -20,4 +20,10 @@ router.put(
   offersController.updateOffer
 );
 
+router.delete(
+  "/:userId([0-9]+)/:offerId([0-9]+)",
+  checkLoggedIn,
+  offersController.deleteOffer
+);
+
 module.exports = router;
