@@ -12,7 +12,7 @@ router.post(
 );
 
 router.get("/:id([0-9]+)", checkLoggedIn, offersController.getMyOffers);
-router.get("/offer/:id([0-9]+)", checkLoggedIn, offersController.getOffer);
+router.get("/offer/:id([0-9]+)", offersController.getOffer);
 
 router.put(
   "/:userId([0-9]+)/:offerId([0-9]+)",
