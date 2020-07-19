@@ -10,35 +10,35 @@ exports.signup = async (req, res) => {
     const credentials = {
       username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     };
     const emailExist = await User.findBy({
-      email: credentials.email
+      email: credentials.email,
     });
     const usernameExist = await User.findBy({
-      username: credentials.username
+      username: credentials.username,
     });
     if (emailExist || usernameExist) {
       if (emailExist)
         res.status(409).json({
-          errorMessage: "Oops, email already exists"
+          errorMessage: "Oops, email already exists",
         });
       else
         res.status(409).json({
-          errorMessage: "Oops, username already exists"
+          errorMessage: "Oops, username already exists",
         });
     } else {
       const [newUser] = await User.createUser(credentials);
       res.status(201).json({
         message: "User created",
         token: generateToken(newUser.email, newUser.id),
-        user: newUser
+        user: newUser,
       });
     }
   } catch (error) {
     res.status(500).json({
       errorMessage: "Oops, something went wrong while registering",
-      error
+      error,
     });
   }
 };
@@ -48,14 +48,15 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
       return res.status(400).json({
-        errorMessage: "Oops, username and password is required for login."
+        errorMessage: "Oops, username and password is required for login.",
       });
     }
     const user = await User.findBy({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
       return res.status(200).json({
         token: generateToken(user.username, user.id),
-        userId: user.id
+        userId: user.id,
+        username: user.username,
       });
     }
     return res
@@ -64,7 +65,7 @@ exports.login = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       errorMessage: "Oops, something went wrong while loging in",
-      err
+      err,
     });
   }
 };
