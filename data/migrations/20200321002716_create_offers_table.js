@@ -11,7 +11,7 @@ exports.up = function (knex) {
     offers.integer("margin").notNullable();
     offers.boolean("margin_above").notNullable();
     offers.string("market_exchange").notNullable();
-    offers.integer("limit_min").defaultTo(0);
+    offers.integer("limit_min");
     offers.integer("limit_max");
     offers.string("headline");
     offers.string("trade_terms", 1000);
