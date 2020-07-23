@@ -9,7 +9,10 @@ const updateBody = (body) => {
 exports.createOrder = async (req, res) => {
   const newOrder = updateBody(req.body);
   try {
-    const newOrderInfo = await ordersModel.saveOrder(newOrder);
+    const newOrderInfo = await ordersModel.saveOrder(req.body.order);
+    const newMessage = await chatModel.saveFirstMessage(
+      req.body.initial_message
+    );
     if (!newOrderInfo) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",

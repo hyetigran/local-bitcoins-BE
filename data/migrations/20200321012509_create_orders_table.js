@@ -24,7 +24,7 @@ exports.up = function (knex) {
       .inTable("offers")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
-    orders.string("price_BCH").notNullable();
+    orders.string("price_bch").notNullable();
     orders.string("bch_amount").notNullable();
     orders.string("fiat_amount").notNullable();
     orders.timestamps(true, true);
