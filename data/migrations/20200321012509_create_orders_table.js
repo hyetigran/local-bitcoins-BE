@@ -24,9 +24,9 @@ exports.up = function (knex) {
       .inTable("offers")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
-    orders.string("priceBCH").notNullable();
-    orders.string("bchAmount").notNullable();
-    orders.string("fiatAmount").notNullable();
+    orders.string("price_BCH").notNullable();
+    orders.string("bch_amount").notNullable();
+    orders.string("fiat_amount").notNullable();
     orders.timestamps(true, true);
   });
 };
