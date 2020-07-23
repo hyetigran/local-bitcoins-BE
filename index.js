@@ -6,7 +6,7 @@ const server = express();
 
 const usersRoutes = require("./users/usersRoutes");
 const offersRoutes = require("./offers/offersRoutes");
-const ordersRouters = require("./orders/ordersRouters");
+const ordersRouters = require("./orders/ordersRoutes");
 
 server.use(helmet());
 server.use(cors());

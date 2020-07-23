@@ -1,8 +1,9 @@
 const express = require("express");
-const ordersControllers = require("./ordersControllers");
+const ordersController = require("./ordersController");
+const checkLoggedIn = require("../middlewares/restrictedMiddleware");
 
 const router = express.Router();
 
-router.post("/create-order");
+router.post("/create-order", checkLoggedIn, ordersController.createOrder);
 
 module.exports = router;

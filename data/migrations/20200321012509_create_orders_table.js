@@ -1,14 +1,8 @@
-exports.up = function(knex) {
-  return knex.schema.createTable("orders", orders => {
+exports.up = function (knex) {
+  return knex.schema.createTable("orders", (orders) => {
     orders.increments();
-    orders
-      .boolean("complete")
-      .notNullable()
-      .defaultTo(false);
-    orders
-      .boolean("cancelled")
-      .notNullable()
-      .defaultTo(false);
+    orders.boolean("complete").notNullable().defaultTo(false);
+    orders.boolean("cancelled").notNullable().defaultTo(false);
     orders
       .integer("maker_id")
       .unsigned()
@@ -30,10 +24,13 @@ exports.up = function(knex) {
       .inTable("offers")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
+    orders.string("priceBCH").notNullable();
+    orders.string("bchAmount").notNullable();
+    orders.string("fiatAmount").notNullable();
     orders.timestamps(true, true);
   });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema.dropTableIfExists("orders");
 };
