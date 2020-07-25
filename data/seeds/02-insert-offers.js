@@ -12,6 +12,7 @@ const createFakeOffers = (value) => {
     margin_above: faker.random.boolean(),
     verified_only: faker.random.boolean(),
     maker_id: value,
+    market_exchange: "Coinbase",
   };
 };
 exports.seed = function (knex) {
@@ -19,10 +20,6 @@ exports.seed = function (knex) {
   for (let i = 1; i < 21; i++) {
     fakeOffers.push(createFakeOffers(i));
   }
-  return knex("offers")
-    .del()
-    .then(function () {
-      // Inserts seed entries
-      return knex("offers").insert(fakeOffers);
-    });
+
+  return knex("offers").insert(fakeOffers);
 };
