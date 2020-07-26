@@ -13,6 +13,8 @@ const createFakeOffers = (value) => {
     verified_only: faker.random.boolean(),
     maker_id: value,
     market_exchange: "Coinbase",
+    headline: faker.lorem.words(),
+    trade_terms: faker.lorem.sentence(),
   };
 };
 exports.seed = function (knex) {
