@@ -30,6 +30,13 @@ server.all("*", (req, res) => {
 const port = process.env.PORT || 8000;
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(port, console.log(`Listening on Port ${port}`));
+  const serverIO = server.listen(
+    port,
+    console.log(`Listening on Port ${port}`)
+  );
+  const io = require("./socket").init(serverIO);
+  io.on("connection", (socket) => {
+    console.log("cient connected");
+  });
 }
 module.exports = server;

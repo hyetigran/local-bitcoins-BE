@@ -1,4 +1,6 @@
 const offersModel = require("./offersModel.js");
+
+const io = require("../socket");
 const updateBody = (body) => {
   const {
     buyBCH,
@@ -53,6 +55,14 @@ exports.getMyOffers = async (req, res) => {
     return res.status(500).json({ error });
   }
 };
+exports.getAllOffers = async (req, res) => {
+  try {
+    const allOffers = await offersModel.fetchAllOffers();
+    return res.status(200).json(allOffers);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
 
 exports.getOffer = async (req, res) => {
   const { id } = req.params;
@@ -75,6 +85,9 @@ exports.createOffer = async (req, res) => {
         errorMessage: "Something went wrong with your request",
       });
     }
+
+    io.getIO().emit("offers", { action: "create", offer: newOfferInfo });
+
     return res.status(201).json(newOfferInfo);
   } catch (error) {
     console.log(error);

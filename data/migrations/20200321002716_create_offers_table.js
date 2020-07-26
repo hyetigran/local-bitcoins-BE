@@ -13,7 +13,7 @@ exports.up = function (knex) {
     offers.string("market_exchange").notNullable();
     offers.integer("limit_min");
     offers.integer("limit_max");
-    offers.string("headline");
+    offers.string("headline").notNullable();
     offers.string("trade_terms", 1000);
     offers.time("open_hours");
     offers.time("close_hours");

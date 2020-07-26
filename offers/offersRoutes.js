@@ -11,6 +11,7 @@ router.post(
   offersController.createOffer
 );
 
+router.get("/all-offers", offersController.getAllOffers);
 router.get("/:id([0-9]+)", checkLoggedIn, offersController.getMyOffers);
 router.get("/offer/:id([0-9]+)", offersController.getOffer);
 
