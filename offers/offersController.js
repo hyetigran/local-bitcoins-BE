@@ -1,4 +1,5 @@
 const offersModel = require("./offersModel.js");
+const io = require("../socket");
 const updateBody = (body) => {
   const {
     buyBCH,
@@ -75,6 +76,9 @@ exports.createOffer = async (req, res) => {
         errorMessage: "Something went wrong with your request",
       });
     }
+
+    io.getIO().emit("offers", { action: "create", offer: newOfferInfo });
+
     return res.status(201).json(newOfferInfo);
   } catch (error) {
     console.log(error);
