@@ -15,7 +15,10 @@ async function fetchMyOffers({ id }) {
 }
 
 async function fetchAllOffers() {
-  return db("offers").orderBy("updated_at", "desc");
+  return db("offers")
+    .join("users", "maker_id", "=", "users.id")
+    .select("offers.*", "users.username")
+    .orderBy("updated_at", "desc");
 }
 
 async function updateOffer(updateOffer, offerId, userId) {
