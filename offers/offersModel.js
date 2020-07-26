@@ -14,6 +14,10 @@ async function fetchMyOffers({ id }) {
   return db("offers").where("maker_id", id);
 }
 
+async function fetchAllOffers() {
+  return db("offers").orderBy("updated_at", "desc");
+}
+
 async function updateOffer(updateOffer, offerId, userId) {
   const [updatedOffer] = await db("offers")
     .where({ id: offerId, maker_id: userId })
@@ -30,6 +34,7 @@ module.exports = {
   saveOffer,
   findById,
   fetchMyOffers,
+  fetchAllOffers,
   updateOffer,
   deleteOfferById,
 };

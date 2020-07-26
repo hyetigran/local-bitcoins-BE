@@ -54,6 +54,14 @@ exports.getMyOffers = async (req, res) => {
     return res.status(500).json({ error });
   }
 };
+exports.getAllOffers = async (req, res) => {
+  try {
+    const allOffers = await offersModel.fetchAllOffers();
+    return res.status(200).json(allOffers);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
 
 exports.getOffer = async (req, res) => {
   const { id } = req.params;
