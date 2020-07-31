@@ -112,6 +112,7 @@ exports.updateOffer = async (req, res) => {
         errorMessage: "Something went wrong with your request",
       });
     }
+    io.getIO().emit("offers", { action: "update", offer: updateComplete });
     return res.status(200).json(updateComplete);
   } catch (error) {
     return res.status(500).json({ error });
@@ -123,7 +124,7 @@ exports.deleteOffer = async (req, res) => {
 
   try {
     const result = await offersModel.deleteOfferById(userId, offerId);
-
+    io.getIO().emit("offers", { action: "delete", id: result });
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error });

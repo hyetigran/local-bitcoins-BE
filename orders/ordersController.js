@@ -26,3 +26,21 @@ exports.createOrder = async (req, res) => {
     });
   }
 };
+
+exports.getMyOrders = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const allMyOrders = await ordersModel.findMyOrders(userId);
+    if (!allMyOrders) {
+      return res.status(400).json({
+        errorMessage: "Something went wrong with your trade request",
+      });
+    }
+    return res.status(200).json(allMyOrders);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      errorMessage: error,
+    });
+  }
+};

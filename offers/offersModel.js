@@ -32,7 +32,6 @@ async function updateOffer(updateOffer, offerId, userId) {
 }
 
 async function deleteOfferById(userId, offerId) {
-  console.log("inside the model");
   return db("offers").where({ id: offerId, maker_id: userId }).del();
 }
 
