@@ -10,8 +10,8 @@ async function saveOrder(newOrder) {
 }
 
 function findMyOrders(id) {
-  console.log("inside model");
-  return db("orders").where("taker_id", "=", id);
+  console.log("inside model", id);
+  return db("orders").where("taker_id", id);
 }
 
 module.exports = {
