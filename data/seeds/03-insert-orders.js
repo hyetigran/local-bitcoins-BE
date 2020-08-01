@@ -5,7 +5,7 @@ const createFakeOrders = (value) => {
     cancelled: value >= 7 ? boolVal : !boolVal,
     maker_id: value,
     taker_id: 21,
-    offer_id: value + 20,
+    offer_id: value,
     price_bch: "250",
     bch_amount: "2",
     fiat_amount: "500",

@@ -13,7 +13,9 @@ function findMyOrders(id) {
   return db("orders")
     .select("orders.*", "users.username")
     .join("users", "orders.maker_id", "=", "users.id")
-    .where("orders.taker_id", id);
+    .where(function () {
+      this.where("orders.taker_id", id).orWhere("orders.maker_id", id);
+    });
 }
 
 module.exports = {

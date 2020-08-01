@@ -17,8 +17,6 @@ exports.seed = function (knex) {
   for (let i = 0; i < desiredFakeUsers; i++) {
     fakeUsers.push(createFakeUser());
   }
-  console.log("fake users", fakeUsers);
-  //return knex("users").insert(fakeUsers);
   return knex("users")
     .del()
     .then(function () {

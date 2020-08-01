@@ -3,7 +3,6 @@ exports.up = function (knex) {
     orders.increments();
     orders.boolean("complete").notNullable().defaultTo(false);
     orders.boolean("cancelled").notNullable().defaultTo(false);
-    orders.boolean("is_buying").notNullable();
     orders
       .integer("maker_id")
       .unsigned()
