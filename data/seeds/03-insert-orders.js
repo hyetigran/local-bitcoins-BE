@@ -9,6 +9,7 @@ const createFakeOrders = (value) => {
     price_bch: "250",
     bch_amount: "2",
     fiat_amount: "500",
+    is_buying: boolVal,
   };
 };
 exports.seed = function (knex) {
