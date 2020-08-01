@@ -11,9 +11,9 @@ async function saveOrder(newOrder) {
 
 function findMyOrders(id) {
   return db("orders")
-    .where("taker_id", id)
-    .join("users", "maker_id", "=", "users.id")
-    .select("offers.*", "users.username");
+    .select("orders.*", "users.username")
+    .join("users", "orders.maker_id", "=", "users.id")
+    .where("orders.taker_id", id);
 }
 
 module.exports = {
