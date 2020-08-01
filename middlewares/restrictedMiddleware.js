@@ -5,9 +5,10 @@ const secret = process.env.JWT_SECRET || "default";
 
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
+
   if (!authHeader) {
     return res.status(400).json({
-      errorMessage: "Not allowed to access this route"
+      errorMessage: "Not allowed to access this route",
     });
   }
   const token = authHeader.split(" ")[1];
@@ -16,8 +17,8 @@ module.exports = (req, res, next) => {
     decodedToken = jwt.verify(token, secret);
   } catch (err) {
     return res.status(401).json({
-      errorMessage: "Not allowed to accessthis route",
-      err
+      errorMessage: "Not allowed to access this route",
+      err,
     });
   }
 
