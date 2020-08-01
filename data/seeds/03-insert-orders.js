@@ -1,9 +1,8 @@
-const faker = require("faker");
-
 const createFakeOrders = (value) => {
+  let boolVal = value <= 3 ? true : false;
   return {
-    complete: faker.random.boolean(),
-    cancelled: faker.random.boolean(),
+    complete: boolVal,
+    cancelled: value >= 7 ? boolVal : !boolVal,
     maker_id: value,
     taker_id: 21,
     offer_id: value + 20,
@@ -14,7 +13,7 @@ const createFakeOrders = (value) => {
 };
 exports.seed = function (knex) {
   let fakeOrders = [];
-  for (let i = 1; i < 21; i++) {
+  for (let i = 1; i < 11; i++) {
     fakeOrders.push(createFakeOrders(i));
   }
 
