@@ -3,20 +3,20 @@ const chatModel = require("../chat/chatModel.js");
 
 exports.createOrder = async (req, res) => {
   const { order, initial_message } = req.body;
-
+  console.log("did I even get here?", order, initial_message);
   try {
     const savedOrder = await ordersModel.saveOrder(order);
-
+    console.log("save good", savedOrder);
     if (!savedOrder) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",
       });
     }
-
+    console.log(savedOrder);
     const messageBody = {
-      orders_id: savedOrder.id,
+      order_id: savedOrder.id,
       text: initial_message,
-      author: savedOrder.taker_id,
+      author_id: savedOrder.taker_id,
     };
 
     const newMessage = await chatModel.saveMessage(messageBody);
