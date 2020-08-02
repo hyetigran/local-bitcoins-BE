@@ -1,50 +1,6 @@
 const offersModel = require("./offersModel.js");
-
+const { updateBody } = require("./offersHelper");
 const io = require("../socket");
-const updateBody = (body) => {
-  const {
-    buyBCH,
-    city,
-    country,
-    paymentMethod,
-    currencyType,
-    currencySymbol,
-    dynamicPricing,
-    margin,
-    marginAbove,
-    marketExchange,
-    limitMin,
-    limitMax,
-    headline,
-    tradeTerms,
-    openHours,
-    closeHours,
-    verifiedOnly,
-    makerId,
-    pause,
-  } = body;
-  return {
-    buyBCH,
-    city,
-    country,
-    payment_method: paymentMethod,
-    currency_type: currencyType,
-    currency_symbol: currencySymbol,
-    dynamic_pricing: dynamicPricing,
-    margin,
-    margin_above: marginAbove,
-    market_exchange: marketExchange,
-    limit_min: limitMin,
-    limit_max: limitMax,
-    headline,
-    trade_terms: tradeTerms,
-    open_hours: openHours,
-    close_hours: closeHours,
-    verified_only: verifiedOnly,
-    maker_id: makerId,
-    pause,
-  };
-};
 
 exports.getMyOffers = async (req, res) => {
   const maker_id = req.params;

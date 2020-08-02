@@ -1,10 +1,6 @@
 const ordersModel = require("./ordersModel.js");
-
-const updateBody = (body) => {
-  const {} = body;
-
-  return {};
-};
+const chatModel = require("../chat/chatModel.js");
+const { mapOrderBody } = require("./ordersHelper");
 
 exports.createOrder = async (req, res) => {
   const newOrder = updateBody(req.body);
