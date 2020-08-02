@@ -11,8 +11,9 @@ async function saveOrder(newOrder) {
 
 function findMyOrders(id) {
   return db("orders")
-    .select("orders.*", "users.username")
-    .join("users", "orders.maker_id", "=", "users.id")
+    .select("orders.*", "u1.usermaker", "u2.usertaker")
+    .leftJoin({ u1: "users" }, "orders.maker_id", "=", "users.id")
+    .leftJoin({ u2: "users" }, "orders.taker_id", "=", "users.id")
     .where(function () {
       this.where("orders.taker_id", id).orWhere("orders.maker_id", id);
     });
