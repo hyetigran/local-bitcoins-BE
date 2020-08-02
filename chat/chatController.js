@@ -1,9 +1,9 @@
 const chatModel = require("./chatModel.js");
 
 exports.getAllMessages = async (req, res) => {
-  const { id } = req.params;
+  const { order_id } = req.params;
   try {
-    const allMyOrders = await chatModel.findAllByOrderId(id);
+    const allMyOrders = await chatModel.findAllByOrderId(order_id);
     if (!allMyOrders) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",
@@ -18,9 +18,9 @@ exports.getAllMessages = async (req, res) => {
 };
 
 exports.createChat = async (req, res) => {
-  const { id } = req.params;
+  const { order_id } = req.params;
   try {
-    const allMyOrders = await chatModel.saveMessage(id);
+    const allMyOrders = await chatModel.saveMessage(order_id);
     if (!allMyOrders) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",
