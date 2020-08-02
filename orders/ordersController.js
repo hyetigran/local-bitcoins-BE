@@ -1,20 +1,31 @@
 const ordersModel = require("./ordersModel.js");
 const chatModel = require("../chat/chatModel.js");
-const { mapOrderBody } = require("./ordersHelper");
 
 exports.createOrder = async (req, res) => {
-  const newOrder = updateBody(req.body);
+  const { order, initial_message } = req.body;
+
   try {
-    const newOrderInfo = await ordersModel.saveOrder(req.body.order);
-    const newMessage = await chatModel.saveFirstMessage(
-      req.body.initial_message
-    );
-    if (!newOrderInfo) {
+    const savedOrder = await ordersModel.saveOrder(order);
+
+    if (!savedOrder) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",
       });
     }
-    return res.status(201).json(newOrderInfo);
+
+    const messageBody = {
+      orders_id: savedOrder.id,
+      text: initial_message,
+      author: savedOrder.taker_id,
+    };
+
+    const newMessage = await chatModel.saveMessage(messageBody);
+    if (!newMessage) {
+      return res.status(400).json({
+        errorMessage: "Something went wrong with your trade request",
+      });
+    }
+    return res.status(201).json(savedOrder);
   } catch (error) {
     return res.status(500).json({
       errorMessage: error,

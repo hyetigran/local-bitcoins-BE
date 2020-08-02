@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("chat", (chat) => {
     chat.increments();
     chat
-      .integer("orders_id")
+      .integer("order_id")
       .unsigned()
       .references("id")
       .inTable("orders")

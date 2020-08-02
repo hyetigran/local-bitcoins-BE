@@ -7,8 +7,8 @@ function findById(id) {
     .select("offers.*", "users.username");
 }
 
-async function saveMessage() {
-  return db("offers").where("maker_id");
+async function saveMessage(newMessage) {
+  return db("chat").insert(newMessage);
 }
 
 async function findAllByOrderId() {
