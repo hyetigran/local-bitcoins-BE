@@ -7,6 +7,7 @@ const server = express();
 const usersRoutes = require("./users/usersRoutes");
 const offersRoutes = require("./offers/offersRoutes");
 const ordersRouters = require("./orders/ordersRoutes");
+const chatRouters = require("./chat/chatRoutes");
 
 server.use(helmet());
 server.use(cors());
@@ -16,6 +17,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use("/api/auth", usersRoutes);
 server.use("/api/offers", offersRoutes);
 server.use("/api/orders", ordersRouters);
+server.use("/api/chat", chatRouters);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Local Bitcoin Clone API" });
@@ -36,6 +38,7 @@ if (process.env.NODE_ENV !== "test") {
   );
   const io = require("./socket").init(serverIO);
   io.on("connection", (socket) => {
+    socket.join("some room");
     console.log("cient connected");
   });
 }
