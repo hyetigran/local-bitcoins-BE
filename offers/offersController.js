@@ -46,7 +46,6 @@ exports.createOffer = async (req, res) => {
 
     return res.status(201).json(newOfferInfo);
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       errorMessage: error,
     });
@@ -69,6 +68,7 @@ exports.updateOffer = async (req, res) => {
       });
     }
     io.getIO().emit("offers", { action: "update", offer: updateComplete });
+    //console.log("getIO", io.getIO());
     return res.status(200).json(updateComplete);
   } catch (error) {
     return res.status(500).json({ error });

@@ -41,6 +41,7 @@ exports.getMyOrders = async (req, res) => {
         errorMessage: "Something went wrong with your trade request",
       });
     }
+    console.log("all my returned orders", allMyOrders);
     return res.status(200).json(allMyOrders);
   } catch (error) {
     return res.status(500).json({

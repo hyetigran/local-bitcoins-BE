@@ -10,10 +10,15 @@ async function saveOrder(newOrder) {
 }
 
 function findMyOrders(id) {
+  console.log("bad");
   return db("orders")
-    .select("orders.*", "u1.usermaker", "u2.usertaker")
-    .leftJoin({ u1: "users" }, "orders.maker_id", "=", "users.id")
-    .leftJoin({ u2: "users" }, "orders.taker_id", "=", "users.id")
+    .select(
+      "orders.*",
+      { usermaker: "u1.username" },
+      { usertaker: "u2.username" }
+    )
+    .leftJoin({ u1: "users" }, "orders.maker_id", "=", "u1.id")
+    .leftJoin({ u2: "users" }, "orders.taker_id", "=", "u2.id")
     .where(function () {
       this.where("orders.taker_id", id).orWhere("orders.maker_id", id);
     });
@@ -24,3 +29,11 @@ module.exports = {
   saveOrder,
   findMyOrders,
 };
+
+// SELECT orders.*, u1.username as usermaker, u2.username as usertaker
+// FROM orders
+// LEFT JOIN users u1
+// ON orders.maker_id = u1.id
+// LEFT JOIN users u2
+// ON orders.taker_id = u2.id
+// WHERE orders.maker_id = 21 OR orders.taker_id = 21;
