@@ -26,10 +26,12 @@ exports.createChat = async (req, res) => {
         errorMessage: "Something went wrong with your trade request",
       });
     }
-    io.getIO()
-      .to("some room")
-      .emit("newMessage", { action: "create", message: savedMessage });
-    return res.status(200).json(savedMessage);
+    //console.log("socket", io.getIO());
+    io.getIO().to(req.body.order_id).emit("newMessage", {
+      action: "create",
+      message: savedMessage,
+    });
+    return res.status(200);
   } catch (error) {
     return res.status(500).json({
       errorMessage: error,

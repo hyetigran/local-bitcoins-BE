@@ -10,7 +10,6 @@ async function saveOrder(newOrder) {
 }
 
 function findMyOrders(id) {
-  console.log("bad");
   return db("orders")
     .select(
       "orders.*",
@@ -29,11 +28,3 @@ module.exports = {
   saveOrder,
   findMyOrders,
 };
-
-// SELECT orders.*, u1.username as usermaker, u2.username as usertaker
-// FROM orders
-// LEFT JOIN users u1
-// ON orders.maker_id = u1.id
-// LEFT JOIN users u2
-// ON orders.taker_id = u2.id
-// WHERE orders.maker_id = 21 OR orders.taker_id = 21;

@@ -5,7 +5,6 @@ exports.createOrder = async (req, res) => {
   const { order, initial_message } = req.body;
   try {
     const savedOrder = await ordersModel.saveOrder(order);
-    console.log("save good", savedOrder);
     if (!savedOrder) {
       return res.status(400).json({
         errorMessage: "Something went wrong with your trade request",
@@ -41,7 +40,6 @@ exports.getMyOrders = async (req, res) => {
         errorMessage: "Something went wrong with your trade request",
       });
     }
-    console.log("all my returned orders", allMyOrders);
     return res.status(200).json(allMyOrders);
   } catch (error) {
     return res.status(500).json({

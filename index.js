@@ -38,7 +38,11 @@ if (process.env.NODE_ENV !== "test") {
   );
   const io = require("./socket").init(serverIO);
   io.on("connection", (socket) => {
-    socket.join("some room");
+    socket.on("joinRoom", (room) => {
+      console.log("joined room");
+      socket.join(room);
+    });
+
     console.log("cient connected");
   });
 }
