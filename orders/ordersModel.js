@@ -23,8 +23,19 @@ function findMyOrders(id) {
     });
 }
 
+function findOrderIdUserId(userId, orderId) {
+  console.log("ids", userId, orderId);
+  return db("orders")
+    .where({ id: orderId })
+    .where(function () {
+      this.where("orders.taker_id", userId).orWhere("orders.maker_id", userId);
+    })
+    .first();
+}
+
 module.exports = {
   findById,
   saveOrder,
   findMyOrders,
+  findOrderIdUserId,
 };

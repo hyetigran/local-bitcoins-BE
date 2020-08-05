@@ -47,3 +47,20 @@ exports.getMyOrders = async (req, res) => {
     });
   }
 };
+
+exports.getCurrentOrder = async (req, res) => {
+  const { userId, orderId } = req.params;
+  try {
+    const currentOrder = await ordersModel.findOrderIdUserId(userId, orderId);
+    if (!currentOrder) {
+      return res.status(400).json({
+        errorMessage: "Something went wrong with your trade request",
+      });
+    }
+    return res.status(200).json(currentOrder);
+  } catch (error) {
+    return res.status(500).json({
+      errorMessage: error,
+    });
+  }
+};
