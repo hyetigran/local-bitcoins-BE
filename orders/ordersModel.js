@@ -39,10 +39,18 @@ function findOrderIdUserId(userId, orderId) {
       this.where("orders.taker_id", userId).orWhere("orders.maker_id", userId);
     });
 }
+async function updateOrderById(order) {
+  const [updatedOrder] = await db("orders")
+    .where({ id: order.id })
+    .update(order, "*");
+
+  return findById(updatedOrder.id);
+}
 
 module.exports = {
   findById,
   saveOrder,
   findMyOrders,
   findOrderIdUserId,
+  updateOrderById,
 };
