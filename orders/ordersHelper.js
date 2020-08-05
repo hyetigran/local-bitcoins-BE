@@ -7,6 +7,9 @@ function mapOrderBody(body) {
     offerId,
     priceBCH,
     takerId,
+    cancelled,
+    complete,
+    id,
   } = body;
   return {
     maker_id: makerId,

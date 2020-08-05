@@ -11,6 +11,6 @@ router.get(
   checkLoggedIn,
   ordersController.getCurrentOrder
 );
-router.get("/:orderId([0-9]+)", checkLoggedIn, ordersController.updateOrder);
+router.put("/:orderId([0-9]+)", checkLoggedIn, ordersController.updateOrder);
 
 module.exports = router;
