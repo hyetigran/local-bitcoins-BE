@@ -24,13 +24,20 @@ function findMyOrders(id) {
 }
 
 function findOrderIdUserId(userId, orderId) {
-  console.log("ids", userId, orderId);
   return db("orders")
-    .where({ id: orderId })
+    .select(
+      "orders.*",
+      { usermaker: "u1.username" },
+      { usertaker: "u2.username" }
+    )
+    .leftJoin({ u1: "users" }, "orders.maker_id", "=", "u1.id")
+    .leftJoin({ u2: "users" }, "orders.taker_id", "=", "u2.id")
     .where(function () {
-      this.where("orders.taker_id", userId).orWhere("orders.maker_id", userId);
+      this.where("orders.id", orderId);
     })
-    .first();
+    .andWhere(function () {
+      this.where("orders.taker_id", userId).orWhere("orders.maker_id", userId);
+    });
 }
 
 module.exports = {
