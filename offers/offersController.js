@@ -16,7 +16,12 @@ exports.getAllOffers = async (req, res) => {
     const allOffers = await offersModel.fetchAllOffers();
     return res.status(200).json(allOffers);
   } catch (error) {
-    return res.status(500).json({ error });
+    return res
+      .status(500)
+      .json({
+        errorMessage: "Oops, something went wrong while getting all offers",
+        error,
+      });
   }
 };
 
