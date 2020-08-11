@@ -78,7 +78,7 @@ exports.updateOrder = async (req, res) => {
       });
     }
 
-    return res.status(201).json(updatedOrder);
+    return res.status(200).json(updatedOrder);
   } catch (error) {
     return res.status(500).json({
       errorMessage: error,
